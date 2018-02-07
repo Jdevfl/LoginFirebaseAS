@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LoginFirebase</string>
+    <string name="url_firebase">https://loginfirebase-ea6a8.firebaseio.com/</string>
+    <string name="firebase_client">610493698055-7pg494h3bfh1qtgfuo726c4iam40ccr0.apps.googleusercontent.com</string>
+</resources>
