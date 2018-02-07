@@ -39,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.mDetailTextView) TextView details;
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
-
-    // [START declare_auth]
+    // declare_auth
     private FirebaseAuth mAuth;
-    // [END declare_auth]
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -52,21 +50,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        // [START config_signin]
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        // [END config_signin]
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // [START initialize_auth]
+        // initialize_auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
 
-        //LISTENERS
+        // listeners buttons
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    // [START onactivityresult]
+    // onactivityresult
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -139,22 +134,22 @@ public class MainActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                // [START_EXCLUDE]
+
+                // refresh UI
                 updateUI(null);
-                // [END_EXCLUDE]
+
             }
         }
     }
-    // [END onactivityresult]
 
-    // [START auth_with_google]
+    // auth_with_google
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         Log.d(TAG, "Email:" + acct.getEmail());
         Log.d(TAG, "Token:" + acct.getIdToken());
-        // [START_EXCLUDE silent]
+
         //showProgressDialog();
-        // [END_EXCLUDE]
+
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -176,13 +171,10 @@ public class MainActivity extends AppCompatActivity {
                             updateUI(null);
                         }
 
-                        // [START_EXCLUDE]
                         //hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
     }
-    // [END auth_with_google]
 
 
 
@@ -203,10 +195,9 @@ public class MainActivity extends AppCompatActivity {
             disconnect.setVisibility(View.GONE);
         }
     }
-    //fin update interfaz
 
 
-    // [START on_start_check_user]
+    // on_start_check_user
     @Override
     public void onStart() {
         super.onStart();
@@ -218,9 +209,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No estás logueado en firebase... logueate!", Toast.LENGTH_SHORT).show();
 
         }
-
         updateUI(currentUser);
     }
-
 
 }
